@@ -10,7 +10,7 @@ public class ContatoDao implements ContatoDaoInterface {
 
     @Override
     public void addContato(Contato contato) {
-        String sql = "INSERT INTO contato (nome, email, endereco) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO contatos (nome, email, endereco) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql)) {
             stmt.setString(1, contato.getNome());
             stmt.setString(2, contato.getEmail());
@@ -24,7 +24,7 @@ public class ContatoDao implements ContatoDaoInterface {
     @Override
     public List<Contato> getAllContatos() {
         List<Contato> contatos = new ArrayList<>();
-        String sql = "SELECT * FROM contato";
+        String sql = "SELECT * FROM contatos";
         try (PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -44,7 +44,7 @@ public class ContatoDao implements ContatoDaoInterface {
     @Override
     public List<Contato> getContatosByInitial(char initial) {
         List<Contato> contatos = new ArrayList<>();
-        String sql = "SELECT * FROM contato WHERE nome LIKE ?";
+        String sql = "SELECT * FROM contatos WHERE nome LIKE ?";
         try (PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql)) {
             stmt.setString(1, initial + "%");
             try (ResultSet rs = stmt.executeQuery()) {
@@ -65,7 +65,7 @@ public class ContatoDao implements ContatoDaoInterface {
 
     @Override
     public Contato getContatoById(long id) {
-        String sql = "SELECT * FROM contato WHERE id = ?";
+        String sql = "SELECT * FROM contatos WHERE id = ?";
         try (PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql)) {
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -86,7 +86,7 @@ public class ContatoDao implements ContatoDaoInterface {
 
     @Override
     public void updateContato(Contato contato) {
-        String sql = "UPDATE contato SET nome = ?, email = ?, endereco = ? WHERE id = ?";
+        String sql = "UPDATE contatos SET nome = ?, email = ?, endereco = ? WHERE id = ?";
         try (PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql)) {
             stmt.setString(1, contato.getNome());
             stmt.setString(2, contato.getEmail());
@@ -100,7 +100,7 @@ public class ContatoDao implements ContatoDaoInterface {
 
     @Override
     public void deleteContato(long id) {
-        String sql = "DELETE FROM contato WHERE id = ?";
+        String sql = "DELETE FROM contatos WHERE id = ?";
         try (PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql)) {
             stmt.setLong(1, id);
             stmt.executeUpdate();
